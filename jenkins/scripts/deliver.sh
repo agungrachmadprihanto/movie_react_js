@@ -1,8 +1,12 @@
 # Enable debugging
 set -x
 
+# Clean install dependencies
+rm -rf node_modules
+npm install
+
 # Run the build command
-npm run build
+npm run build || { echo 'Build failed'; exit 1; }
 
 # Disable debugging
 set +x
