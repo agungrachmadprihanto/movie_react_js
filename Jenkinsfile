@@ -1,8 +1,5 @@
 pipeline {
     agent any
-         environment {
-            CI = 'true'
-        }
     stage('Deliver') {
             steps {
                 sh 'chmod +x jenkins/scripts/deliver.sh'
