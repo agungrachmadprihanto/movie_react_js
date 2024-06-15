@@ -1,13 +1,17 @@
 pipeline {
     agent any
-    stage('Deliver') {
+
+    stages {
+        stage('Build and Deploy') {
             steps {
-                sh 'chmod +x jenkins/scripts/deliver.sh'
-                sh 'jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'chmod +x jenkins/scripts/kill.sh'
-                sh 'jenkins/scripts/kill.sh'
+                script {
+                    // Make sure the deliver.sh script is executable
+                    sh 'chmod +x jenkins/scripts/deliver.sh'
+
+                    // Run the deliver.sh script
+                    sh 'jenkins/scripts/deliver.sh'
+                }
             }
         }
     }
-
+}
