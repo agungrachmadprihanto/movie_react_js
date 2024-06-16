@@ -7,13 +7,6 @@ pipeline {
     }
 
     stages {
-      
-        stage('Checkout') {
-            steps {
-                // Cloning repository dari SCM (misalnya GitHub)
-                git branch: 'master', url: 'git@github.com:agungrachmadprihanto/movie_react_js.git'
-            }
-        }
         stage('Install Dependencies') {
             steps {
                 // Install dependencies menggunakan npm atau yarn
