@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Ganti dengan versi Node.js yang sesuai
         NODE_VERSION = '14.21.3'
+        NPM_CONFIG_PREFIX = '${env.WORKSPACE}/.npm-global'
     }
 
     stages {
