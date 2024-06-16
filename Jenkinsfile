@@ -23,8 +23,7 @@ pipeline {
             steps {
                 // Deploy aplikasi ke port 3000
                 sh """
-                npm install -g serve
-                serve -s build -l 3000 &
+                  npx serve -s build -l 3000 &
                 """
             }
         }
