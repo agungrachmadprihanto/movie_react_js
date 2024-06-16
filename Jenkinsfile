@@ -10,26 +10,25 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Install dependencies menggunakan npm atau yarn
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm install'
+                sh 'npm install'
             }
         }
         stage('Build') {
             steps {
                 // Build aplikasi React
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm run build'
+                sh 'npm run build'
             }
         }
         stage('Test') {
             steps {
                 // Jalankan testing
-                sh '. ~/.nvm/nvm.sh && nvm use $NODE_VERSION && npm test'
+                sh 'npm test'
             }
         }
         stage('Deploy') {
             steps {
                 // Deploy aplikasi ke port 3000
                 sh """
-                . ~/.nvm/nvm.sh && nvm use $NODE_VERSION
                 npm install -g serve
                 serve -s build -l 3000 &
                 """
