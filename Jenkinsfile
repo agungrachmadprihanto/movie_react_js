@@ -22,9 +22,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Deploy aplikasi ke port 3000
-                sh """
                 sh 'cp -r build/*  /usr/share/nginx/html
-                """
+                
             }
         }
     }
