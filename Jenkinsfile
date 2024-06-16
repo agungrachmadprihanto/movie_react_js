@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Deploy aplikasi ke port 3000
                 sh """
-                  npx serve -s build -l 3000 &
+                sh 'cp -r build/*  /usr/share/nginx/html
                 """
             }
         }
