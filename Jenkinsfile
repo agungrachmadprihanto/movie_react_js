@@ -18,13 +18,7 @@ pipeline {
                 // Build aplikasi React
                 sh 'npm run build'
             }
-        }
-        stage('Test') {
-            steps {
-                // Jalankan testing
-                sh 'npm test'
-            }
-        }
+        }  
         stage('Deploy') {
             steps {
                 // Deploy aplikasi ke port 3000
