@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloning repository dari SCM (misalnya GitHub)
-                git branch: 'main', url: 'https://github.com/username/repo.git'
+                git branch: 'main', url: 'git@github.com:agungrachmadprihanto/movie_react_js.git'
             }
         }
         stage('Install Dependencies') {
