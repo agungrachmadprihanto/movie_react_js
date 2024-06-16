@@ -3,19 +3,11 @@ pipeline {
 
     environment {
         // Ganti dengan versi Node.js yang sesuai
-        NODE_VERSION = '14.x'
+        NODE_VERSION = '14.21.3'
     }
 
     stages {
-        stage('Preparation') {
-            steps {
-                script {
-                    // Install Node.js menggunakan nvm
-                    sh 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'
-                    sh '. ~/.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION'
-                }
-            }
-        }
+      
         stage('Checkout') {
             steps {
                 // Cloning repository dari SCM (misalnya GitHub)
