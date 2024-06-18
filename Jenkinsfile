@@ -1,41 +1,27 @@
-pipeline {
-    agent any
+# Fetching the latest node image on apline linux
+FROM node:alpine AS builder
 
-    environment {
-        DOCKER_IMAGE = 'myapp:latest'
-        DOCKER_CONTAINER_NAME = 'myapp-container'
-    }
+# Declaring env
+ENV NODE_ENV production
 
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build(DOCKER_IMAGE)
-                }
-            }
-        }
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    // Stop and remove any existing container
-                    sh '''
-                    docker stop ${DOCKER_CONTAINER_NAME} || true
-                    docker rm ${DOCKER_CONTAINER_NAME} || true
-                    '''
+# Setting up the work directory
+WORKDIR /app
 
-                    // Run the new container
-                    docker.image(DOCKER_IMAGE).run("-d -p 80:80 --name ${DOCKER_CONTAINER_NAME}")
-                }
-            }
-        }
-    }
+# Installing dependencies
+COPY ./package.json ./yarn.lock ./
+RUN yarn
 
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
-    }
-}
+# Copying all the files in our project
+COPY . .
+
+# Building our application
+RUN yarn run build
+
+# Fetching the latest nginx image
+FROM nginx
+
+# Copying built assets from builder
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Copying our nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
